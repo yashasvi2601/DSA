@@ -29,3 +29,19 @@ Constraints:
 1 ≤ n ≤ 105
 1 ≤ p ≤ 4*104 
 1 <= arr[i] <= p
+
+Solution:
+void frequencyCount(vector<int>& arr, int N, int P) {
+        // do modify in the given array
+        for (int i = 0; i < N; i++) 
+        {
+            if ((arr[i] % (P + 1)) > N)
+            continue;
+            int k = arr[i] % (P + 1);
+            arr[k - 1] += (P + 1);
+        }
+        for (int i = 0; i < N; i++)
+        {
+            arr[i] = arr[i] / (P + 1);
+        }
+    }

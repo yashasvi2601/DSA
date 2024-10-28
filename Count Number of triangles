@@ -1,0 +1,31 @@
+Count Number of triangles possible.
+
+CODE:
+
+int findNumberOfTriangles(int arr[], int n)
+{
+        // code here
+        sort(arr, arr + n);
+        int count = 0;
+        for(int fixed = n - 1; fixed >= 2; fixed--) {
+        int left = 0, right = fixed - 1;
+        while (left < right) {
+            if (arr[left] + arr[right] > arr[fixed]) {
+                // All elements from arr[left] to arr[right-1] will satisfy the triangle condition
+                count += (right - left);
+                right--;
+            } else {
+                left++;
+            }
+        }
+    }
+    return count;
+}
+
+Explaination:
+1) Sort the Array: This is correct in your code, as sorting simplifies the check by keeping the largest side as arr[fixed].
+2) Two-pointer Technique: Fix fixed as the largest side, set right to fixed - 1, and left to the start. Then use a two-pointer technique:
+  a) If arr[left]+arr[right]>arr[fixed], all elements from left to right-1 can form a triangle with arr[fixed]
+  (since the array is sorted, all values from arr[left] to arr[right-1] will also satisfy the condition).
+  b) If arr[left]+arr[right]≤arr[fixed], increment left to try the next larger side.
+3) Decrement right pointer only when a triangle is counted.

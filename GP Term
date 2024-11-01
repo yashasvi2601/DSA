@@ -1,0 +1,60 @@
+Given the first 2 terms A and B of a Geometric Series. The task is to find the Nth term of the series.
+
+Example 1:
+
+Input:
+A = 2 
+B = 3
+N = 1
+Output: 2
+Explanation: The first term is already
+given in the input as 2
+Example 2:
+
+Input:
+A = 1
+B = 2
+N = 5
+Output: 16
+Explanation: Common ratio = 2,
+Hence Fifth term is 1*(2)(5-1) = 24 = 16 .
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function termOfGP() 
+that takes A, B and N as parameter and returns Nth term of GP. The return value should be double that would be automatically converted to floor by the driver code.
+
+Expected Time Complexity : O(logN)
+Expected Auxilliary Space : O(1)
+
+Constraints:
+-100 <= A <= 100
+-100 <= B <= 100
+1 <= N <= 5
+
+CODE:
+double termOfGP(int A,int B,int N)
+    {
+        //Your code here
+        double ratio = static_cast<double>(B) / A;
+        int nth = N-1;
+        double series = pow(ratio,nth);
+        double num = A*series;
+        return num;
+    }
+
+The line double ratio = static_cast<double>(B) / A; ensures that the division between B and A is performed in floating-point arithmetic,
+even if both B and A are integers. Here’s why this is necessary:
+
+1) Integer Division in C++:
+
+In C++, when both operands of a division (/) are integers, the result will also be an integer.
+This means any fractional part will be discarded (truncated), leading to incorrect results for ratios that aren't whole numbers.
+For example, if B = 3 and A = 2, B / A as integers would yield 1 instead of the correct ratio 1.5.
+
+2) Casting to Double for Precision:
+
+static_cast<double>(B) explicitly converts B to a double before division, so the division operates in floating-point mode.
+When one operand is a double, the other operand (A) is implicitly promoted to double as well, resulting in a double result with full decimal precision.
+
+3) Why static_cast<double>(B) is Preferred:
+
+static_cast<double>(B) is a safe and explicit way to convert B to double, avoiding unexpected truncation or implicit type promotions.
